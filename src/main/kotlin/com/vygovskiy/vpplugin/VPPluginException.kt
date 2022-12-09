@@ -1,4 +1,4 @@
 package com.vygovskiy.vpplugin
 
-class VPPluginException(msg : String) : RuntimeException() {
+class VPPluginException(msg : String, cause : Throwable? = null) : RuntimeException(msg,cause) {
 }

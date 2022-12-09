@@ -7,6 +7,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
+import java.io.File
 import java.nio.file.Files
 import kotlin.io.path.Path
 
@@ -17,6 +18,7 @@ abstract class BaseTask : DefaultTask() {
         }
     }
 
+
     @Input
     @Optional
     abstract fun getPluginsDir(): Property<String>
@@ -25,6 +27,10 @@ abstract class BaseTask : DefaultTask() {
     @Optional
     abstract fun getPluginName(): Property<String>
 
+    @Input
+    @Optional
+    abstract fun getTemplateFile(): Property<String>;
+
     @Internal
     protected val _pluginsDir: String = getPluginsDir().getOrElse(getDefaultPluginsDir())
 
@@ -32,7 +38,13 @@ abstract class BaseTask : DefaultTask() {
     protected val _pluginName: String = getPluginName().getOrElse(project.name)
 
     @Internal
-    protected val _pluginDir = Path(_pluginsDir,_pluginName);
+    protected val _pluginDir = Path(_pluginsDir, _pluginName);
+
+    @Internal
+    protected val _templateFile: File =
+        getTemplateFile()
+            .getOrElse("${this.project.projectDir}/src/main/resources/plugin.xml.ftl")
+            .let {File(it)}
 
     private fun getDefaultPluginsDir(): String {
         val userHome = System.getProperty("user.home");
@@ -49,6 +61,4 @@ abstract class BaseTask : DefaultTask() {
         }
         return vpSettingsDir + "plugins";
     }
-
-
 }

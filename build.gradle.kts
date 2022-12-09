@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     implementation("org.apache.commons:commons-lang3:3.12.0")
-    implementation("io.arrow-kt:arrow-core:1.1.3")
+    implementation("org.freemarker:freemarker:2.3.31")
     testImplementation(kotlin("test"))
 }
 

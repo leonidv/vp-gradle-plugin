@@ -13,4 +13,8 @@ abstract class VisualParadigmExtension {
     @Input
     @Optional
     abstract fun getPluginName() : Property<String>
+
+    @Input
+    @Optional
+    abstract fun getTemplateFile() : Property<String>
 }
